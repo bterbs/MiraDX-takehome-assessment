@@ -1,0 +1,35 @@
+/* src/Form.css */
+.multi-step-form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+}
+
+.multi-step-form div {
+margin-bottom: 10px;
+}
+
+.multi-step-form label {
+margin-right: 10px;
+}
+
+.multi-step-form .address {
+    display: flex;
+    flex-direction: column;
+}
+
+.multi-step-form .address label {
+    align-self: start;
+}
+
+.navigation-buttons {
+display: flex;
+justify-content: space-between;
+}
+
+.error {
+color: red;
+font-size: 12px;
+}
