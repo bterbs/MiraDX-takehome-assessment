@@ -2,13 +2,8 @@ import React, { useState } from 'react';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import './Form.css';
-
-type Address = {
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-};
+import validateStep1 from '../../utils';
+import { Address } from '../../constants';
 
 const Form: React.FC = () => {
   const [step, setStep] = useState<number>(1);
@@ -21,30 +16,14 @@ const Form: React.FC = () => {
   const [address, setAddress] = useState<Address>({ street: '', city: '', state: '', zip: '' });
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
-  const validateStep1 = (): boolean => {
-    const newErrors: { email?: string; password?: string } = {};
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const passwordRegex = /^(?=.*[0-9])(?=.*[\W_])[a-zA-Z0-9\W_]{8,}$/;
-
-    if (!emailRegex.test(email)) {
-      newErrors.email = 'Invalid email format';
-    }
-    if (!passwordRegex.test(password) || password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters long and include at least one number and one symbol';
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const nextStep = (): void => {
-    if (step === 1 && !validateStep1()) return;
+    if (step === 1 && !validateStep1(email, password, setErrors)) return;
     setStep(step + 1);
   };
 
   const prevStep = (): void => setStep(step - 1);
 
   return (
-    <>
       <div className="multi-step-form">
         {step === 1 && (
           <Step1
@@ -75,7 +54,6 @@ const Form: React.FC = () => {
           {step === 2 && <button type="submit">Submit</button>}
         </div>
       </div>
-    </>
   );
 };
 
