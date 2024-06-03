@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-To view the component, in the project directory, you can run:
+To view the component, in the  `/miradx` project directory, you can run:
 
 ### `npm start`
 
