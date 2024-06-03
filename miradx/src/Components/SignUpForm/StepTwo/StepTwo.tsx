@@ -24,6 +24,7 @@ const StepTwo = ({ firstName, lastName, dob, showAddress, address, setShowAddres
           name="firstName"
           value={firstName}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div>
@@ -34,6 +35,7 @@ const StepTwo = ({ firstName, lastName, dob, showAddress, address, setShowAddres
           name="lastName"
           value={lastName}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div>
@@ -44,6 +46,7 @@ const StepTwo = ({ firstName, lastName, dob, showAddress, address, setShowAddres
           name="dob"
           value={dob}
           onChange={handleInputChange}
+          required
         />
       </div>
       <div>

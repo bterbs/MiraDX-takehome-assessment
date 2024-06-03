@@ -6,8 +6,10 @@ type StepOneProps = {
   password: string,
   errors: {
     email?: string,
-    password: string,
-    form?: string
+    password?: string,
+    form?: {
+      message?: string
+    }
   },
   handleInputChange: React.ChangeEventHandler
 }
