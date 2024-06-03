@@ -1,7 +1,18 @@
 // src/Step1.js
 import React from 'react';
 
-const Step1 = ({ email, setEmail, password, setPassword, errors }) => {
+type StepOneProps = {
+  email: string,
+  password: string,
+  errors: {
+    email?: string,
+    password: string,
+    form?: string
+  },
+  handleInputChange: React.ChangeEventHandler
+}
+
+const StepOne = ({ email, password, errors, handleInputChange }: StepOneProps) => {
   return (
     <div>
       <div>
@@ -9,8 +20,9 @@ const Step1 = ({ email, setEmail, password, setPassword, errors }) => {
         <input
           type="email"
           id="email"
+          name="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleInputChange}
         />
         {errors.email && <p className="error">{errors.email}</p>}
       </div>
@@ -19,8 +31,9 @@ const Step1 = ({ email, setEmail, password, setPassword, errors }) => {
         <input
           type="password"
           id="password"
+          name="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleInputChange}
         />
         {errors.password && <p className="error">{errors.password}</p>}
       </div>
@@ -28,4 +41,4 @@ const Step1 = ({ email, setEmail, password, setPassword, errors }) => {
   );
 };
 
-export default Step1;
+export default StepOne;
