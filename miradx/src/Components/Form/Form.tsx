@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Step1 from '../StepOne/StepOne';
-import Step2 from '../SignUpForm/StepTwo/StepTwo';
+import StepOne from '../StepOne/StepOne';
+import StepTwo from '../SignUpForm/StepTwo/StepTwo';
 import './Form.css';
-import { validateStep1, resetForms } from '../../utils';
+import { validateStepOne, resetForms, requiredInputsFilled } from '../../utils';
 
 const Form: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -35,7 +35,6 @@ const Form: React.FC = () => {
   };
 
   const handleAddressInputChange = (e:any) => {
-    console.log('target ' + e.target.value)
     const { name, value } = e.target;
     setAddressData({...addressData, [name]: value});
   };
@@ -53,26 +52,30 @@ const Form: React.FC = () => {
 
 
   const handleSubmit = (e:any) => {
-      // Process form data
-      console.log('Form Submitted', compiledFormData);
-      fetch('https://httpstat.us/random/200', requestOptions) // change 200 to 500 to mock error status
-          .then(response => {
-            if(response.ok){
-              setSuccess(true)
-            }
-            return response
-          })
-          .catch(error => {
-            setErrors({...errors, form: error})
-          })
-      // Reset forms
-      console.log('Reset Forms')
-      resetForms(setFormData, setShowAddress, setAddressData, setErrors, setSuccess)
+      // Process form data if required inputs filled
+      if(requiredInputsFilled(formData)){
+        fetch('https://httpstat.us/random/200', requestOptions) // change 200 to 500 to mock error status
+        .then(response => {
+          if(response.ok){
+            setStep(1)
+            setSuccess(true)
+          }
+          return response
+        })
+        .catch(error => {
+          setErrors({...errors, form: error})
+        })
+        // Reset forms
+        resetForms(setFormData, setShowAddress, setAddressData, setErrors, setSuccess)
+      } else {
+        // throw error about required inputs
+        setErrors({...errors, form: { message: 'Please fill out required fields.' }})
+      }
     };
 
 
   const nextStep = (): void => {
-    if (step === 1 && !validateStep1(formData.email, formData.password, setErrors)) return;
+    if (step === 1 && !validateStepOne(formData.email, formData.password, setErrors)) return;
     setStep(step + 1);
   };
 
@@ -84,15 +87,16 @@ const Form: React.FC = () => {
   return (
       <div className="multi-step-form">
         {step === 1 && (
-          <Step1
+          <StepOne
             email={formData.email}
             password={formData.password}
+            success={success}
             errors={errors}
             handleInputChange={handleInputChange}
           />
         )}
         {step === 2 && (
-          <Step2
+          <StepTwo
             firstName={formData.firstName}
             lastName={formData.lastName}
             dob={formData.dob}
@@ -110,9 +114,6 @@ const Form: React.FC = () => {
         </div>
         {errors.form && (
           <p className="error">{errors.form.message}</p>
-        )}
-        {success && (
-          <p className="success">Form submitted successfully!</p>
         )}
       </div>
   );

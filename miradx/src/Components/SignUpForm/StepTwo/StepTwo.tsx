@@ -1,53 +1,39 @@
-// src/Step2.js
 import React from 'react';
-import { Address } from '../../../constants';
-
-type StepTwoProps = {
-  firstName: string,
-  lastName: string,
-  dob: string,
-  showAddress: boolean,
-  address: Address,
-  setShowAddress: Function,
-  handleInputChange: React.ChangeEventHandler,
-  handleAddressInputChange: React.ChangeEventHandler
-}
+import { StepTwoProps } from '../../../types';
 
 const StepTwo = ({ firstName, lastName, dob, showAddress, address, setShowAddress, handleInputChange, handleAddressInputChange }: StepTwoProps) => {
   return (
     <div>
       <div>
-        <label htmlFor="firstName">First Name:</label>
+        <label htmlFor="firstName">First Name:*</label>
         <input
           type="text"
           id="firstName"
           name="firstName"
           value={firstName}
           onChange={handleInputChange}
-          required
         />
       </div>
       <div>
-        <label htmlFor="lastName">Last Name:</label>
+        <label htmlFor="lastName">Last Name:*</label>
         <input
           type="text"
           id="lastName"
           name="lastName"
           value={lastName}
           onChange={handleInputChange}
-          required
         />
       </div>
       <div>
-        <label htmlFor="dob">Date of Birth:</label>
+        <label htmlFor="dob">Date of Birth:*</label>
         <input
           type="date"
           id="dob"
           name="dob"
           value={dob}
           onChange={handleInputChange}
-          required
         />
+        <p>* denotes required field</p>
       </div>
       <div>
         <label htmlFor="showAddress">Include Address:</label>

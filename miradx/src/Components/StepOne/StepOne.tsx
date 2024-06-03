@@ -1,22 +1,12 @@
-// src/Step1.js
 import React from 'react';
+import { StepOneProps } from '../../types';
 
-type StepOneProps = {
-  email: string,
-  password: string,
-  errors: {
-    email?: string,
-    password?: string,
-    form?: {
-      message?: string
-    }
-  },
-  handleInputChange: React.ChangeEventHandler
-}
-
-const StepOne = ({ email, password, errors, handleInputChange }: StepOneProps) => {
+const StepOne = ({ email, password, success, errors, handleInputChange }: StepOneProps) => {
   return (
     <div>
+        {success && (
+          <p className="success">Form submitted successfully!</p>
+        )}
       <div>
         <label htmlFor="email">Email:</label>
         <input
